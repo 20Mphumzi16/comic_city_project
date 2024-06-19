@@ -6,7 +6,6 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToOne;
 
 
-import java.util.Objects;
 
 @MappedSuperclass
 public class User{
