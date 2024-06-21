@@ -9,25 +9,20 @@ import za.ac.cput.util.Helper;
 
 
 
-public  class BillingAddressFactory {
+public class BillingAddressFactory {
 
 
-    public BillingAdress buildBillingAddress (String paymentMethod, String invoiceNotes, String street , String suburb, String postalCode, String city ) {
+    public BillingAdress buildBillingAddress (String paymentMethod, String street , String suburb, String postalCode, String city ) {
         if (Helper.isStringNullorEmpty(street) || Helper.isStringNullorEmpty(suburb) || Helper.isInvalidPostalCode(postalCode) ||
-                Helper.isStringNullorEmpty(city) || Helper.isStringNullorEmpty(paymentMethod) ||
-                Helper.isStringNullorEmpty(invoiceNotes))
+                Helper.isStringNullorEmpty(city) || Helper.isStringNullorEmpty(paymentMethod))
             return null;
-        BillingAdress billingAdress = (BillingAdress) new BillingAdress.BillingAdressBuilder().
-                setPaymentMethod(paymentMethod).
-                setInvoiceNotes(invoiceNotes).
-                setStreet(street).
-                setSuburb(suburb).
-                setPostalCode(postalCode).
-                setCity(city).
-                build();
-
-         // BillingAdress  address = new BillingAdress.BillingAdressBuilder().copy(billingAdress).setInvoiceNotes(invoiceNotes).setPaymentMethod(paymentMethod).build();
-        return billingAdress;
+        return (BillingAdress) new BillingAdress.BillingAdressBuilder()
+                .setPaymentMethod(paymentMethod)
+                .setStreet(street)
+                .setSuburb(suburb)
+                .setPostalCode(postalCode)
+                .setCity(city)
+                .build();
 
 
     }
