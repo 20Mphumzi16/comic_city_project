@@ -2,12 +2,14 @@ package za.ac.cput.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
 import java.util.Objects;
+
+
+
 @Entity
 public class Admin extends User {
     @Id
-    private String employeeId;
+    private Long employeeId;
     private String password;
 
 
@@ -22,7 +24,7 @@ public class Admin extends User {
         this.password = builder.password;
     }
 
-    public String getEmployeeId() {
+    public Long getEmployeeId() {
         return employeeId;
     }
     public String getPassword() {
@@ -53,12 +55,11 @@ public class Admin extends User {
     }
 
 
-    public static class AdminBuilder {
-
-        private String employeeId;
+    public static class AdminBuilder extends UserBuilder{
+        private Long employeeId;
         private String password;
 
-        public AdminBuilder setEmployeeId(String employeeId) {
+        public AdminBuilder setEmployeeId(Long employeeId) {
             this.employeeId = employeeId;
             return this;
         }
