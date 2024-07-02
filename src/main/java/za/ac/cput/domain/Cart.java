@@ -19,7 +19,7 @@ public class Cart {
     private Long cartId;
     @OneToOne(cascade = CascadeType.ALL)
     private Customer customer;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "cart_comicbook",
             joinColumns = @JoinColumn(name = "cart_id"),

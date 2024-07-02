@@ -1,7 +1,6 @@
 package za.ac.cput.domain;
 
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToOne;
@@ -13,7 +12,7 @@ public class User{
     protected String password;
     @Embedded
     protected Name name;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     protected Contact contact;
 
 
