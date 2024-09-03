@@ -202,5 +202,20 @@ class ComicBookControllerTest {
         System.out.println("All Books:");
         System.out.println(response);
         System.out.println(response.getBody());
+
     }
-}
+    @Test
+
+    @Order(6)
+    void e_getNoOfBooksAvilible() {
+            String url = BASE_URL + "/comiccity/comic_book/{bookSKU}/quantity";
+
+            HttpHeaders headers = new HttpHeaders();
+            HttpEntity<String> httpEntity = new HttpEntity<>(null, headers);
+
+            ResponseEntity<String> response = testRestTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class, 1L);
+
+            System.out.println("No of Books available :" + response.getBody());
+        }
+
+    }

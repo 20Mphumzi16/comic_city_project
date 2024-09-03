@@ -24,3 +24,11 @@ export const getAllComicBooks = () => {
 export const searchComicBooksByName = (name) => {
     return axios.get(`${API_URL}/search/name/${name}`);
 };
+
+export const getAvailableQuantity = (sku) => {
+    return axios.get(`${API_URL}/${sku}/quantity`);
+};
+
+export const addToCart = (sku) => {
+    return axios.get(`${API_URL}/${sku}/addToCart`);
+};

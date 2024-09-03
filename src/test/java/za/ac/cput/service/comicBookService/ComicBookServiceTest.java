@@ -220,4 +220,19 @@ class ComicBookServiceTest {
         System.out.println(comicBookService.getAll());
 
 }
+
+    @Test
+    @Order(6)
+     void getAvailableQuantity() {
+        System.out.println(comicBookService.getAvailableQuantity(1L));
+
+    }
+
+    @Test
+    @Order(7)
+    void addAvilibleBooktoCart() {
+        System.out.println(comicBookService.addToCart(1L,1));
+
+    }
+
 }

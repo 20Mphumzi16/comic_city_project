@@ -152,5 +152,30 @@ public class ComicBookService implements IComicBookService{
     public List<ComicBook> findByGenresIn( Set<Genre> genres){
         return repo.findByGenresIn(genres);
     }
+
+    // Method to get the available quantity for a specific book
+    public int getAvailableQuantity(Long bookSKU) {
+        return repo.getBookQuantity(bookSKU);
+    }
+
+    // Method adds to the cart if The book is available
+
+    @Transactional
+    public String addToCart(Long bookId, int quantity) {
+        int availableQuantity = repo.getBookQuantity(bookId);
+
+        if (availableQuantity < quantity) {
+            return "No specified quantity or Out of stock";
+        }
+
+        int updatedRows = repo.decrementBookQuantity(bookId, quantity);
+
+        if (updatedRows > 0) {
+            return "Books successfully added to cart";
+        } else {
+            return "Failed to add books to cart. Please try again.";
+        }
+    }
+
 }
 

@@ -75,4 +75,15 @@ public class ComicBookController {
         List<ComicBook> comicBooks = comicBookService.findByGenresIn(genres);
         return new ResponseEntity<>(comicBooks, HttpStatus.OK);
     }
+
+    @GetMapping("/{bookSKU}/quantity")
+    public int getAvailableQuantity(@PathVariable Long bookSKU) {
+        return comicBookService.getAvailableQuantity(bookSKU);
+    }
+
+    @PostMapping("/{bookSKU}/addToCart")
+    public String addToCart(@PathVariable Long bookSKU, @RequestParam int quantity) {
+        return comicBookService.addToCart(bookSKU, quantity);
+    }
+
 }

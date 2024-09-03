@@ -1,24 +1,34 @@
 <template>
   <div class="view_item_page-container">
-    <nav-bar/>
+    <nav-bar />
     <header class="page-header"></header>
     <main class="product-page">
       <div class="product-top">
-        <div class="product-image"  >
-          <img :src="comicImage" alt="Comic Cover"/>
+        <div class="product-image">
+          <img :src="comicImage" alt="Comic Cover" />
         </div>
         <div class="product-description">
           <h2>{{ comic.name }}</h2>
           <p><strong>Price:</strong> R{{ comic.price }}</p>
 
-          <div class="heart-icon" :class="{ 'active': isFavorite }" @click="toggleWishlist">
-            <font-awesome-icon icon="heart"/>
+          <div
+              class="heart-icon"
+              :class="{ active: isFavorite }"
+              @click="toggleWishlist"
+          >
+            <font-awesome-icon icon="heart" />
           </div>
 
           <form @submit.prevent="addToCart">
             <div class="form-group">
               <label for="quantity">Quantity</label>
-              <input type="number" id="quantity" v-model="quantity" min="1"/>
+              <input
+                  type="number"
+                  id="quantity"
+                  v-model="quantity"
+                  min="1"
+                  @change="checkAvailability"
+              />
             </div>
             <div class="form-action">
               <button type="submit">Add to cart</button>
@@ -26,14 +36,29 @@
           </form>
 
           <div class="in-stock">
-            <p>Availability: {{ comic.availability }}</p>
+            <p>Availability: {{ availableQuantity }}</p>
           </div>
 
           <div class="product-tabs">
             <ul>
-              <li :class="{ active: activeTab === 'description' }" @click="activeTab = 'description'">Description</li>
-              <li :class="{ active: activeTab === 'details' }" @click="activeTab = 'details'">Details</li>
-              <li :class="{ active: activeTab === 'ratings' }" @click="activeTab = 'ratings'">Ratings</li>
+              <li
+                  :class="{ active: activeTab === 'description' }"
+                  @click="activeTab = 'description'"
+              >
+                Description
+              </li>
+              <li
+                  :class="{ active: activeTab === 'details' }"
+                  @click="activeTab = 'details'"
+              >
+                Details
+              </li>
+              <li
+                  :class="{ active: activeTab === 'ratings' }"
+                  @click="activeTab = 'ratings'"
+              >
+                Ratings
+              </li>
             </ul>
             <div v-if="activeTab === 'description'">
               <p>{{ comic.description }}</p>
@@ -54,23 +79,29 @@
       </div>
       <div class="Related-items">
         <h3>Related Items</h3>
+        <router-link to="/">
         <div class="gallery">
-          <img v-for="image in galleryImages" :src="image.src" :alt="image.alt" :key="image.src">
+          <img
+              v-for="image in galleryImages"
+              :src="image.src"
+              :alt="image.alt"
+              :key="image.src"
+          />
         </div>
+        </router-link>
       </div>
     </main>
     <footer class="page-footer">
-      <footer-section/>
+      <footer-section />
     </footer>
   </div>
 </template>
 
-
 <script>
 import NavBar from '@/components/NavBar.vue';
 import FooterSection from '@/components/FooterSection.vue';
-import {addBookToCart, getCustomerCart} from "@/services/cartService";
-import {getComicBook} from "@/services/comicBookService";
+import { getAvailableQuantity, getComicBook } from '@/services/comicBookService';
+import { addBookToCart, getCustomerCart } from '@/services/cartService';
 
 export default {
   name: 'ViewItem', // Updated component name
@@ -81,16 +112,16 @@ export default {
   props: {
     wishlist: {
       type: Array,
-      default: () => [] // Ensure default is an empty array
-    }
+      default: () => [], // Ensure default is an empty array
+    },
   },
   data() {
     return {
-
       comic: '', // This will store the fetched comic data
-      quantity: 1,
+      quantity: 1, // Corrected typo here
+      availableQuantity: 0, // This will store the available quantity
       activeTab: 'description',
-      sku:'',
+      sku: '',
 
       galleryImages: [
         { src: require('@/assets/ComicBookCover1.jpeg'), alt: 'Image 1' },
@@ -106,7 +137,9 @@ export default {
   computed: {
     isFavorite() {
       if (this.comic && this.comic.sku) {
-        const isInWishlist = this.wishlist.some((item) => item.sku === this.comic.sku);
+        const isInWishlist = this.wishlist.some(
+            (item) => item.sku === this.comic.sku
+        );
         console.log(`Comic SKU: ${this.comic.sku} - Is in Wishlist: ${isInWishlist}`);
         return isInWishlist;
       }
@@ -125,10 +158,12 @@ export default {
       try {
         const response = await getComicBook(this.sku); // Fetch the comic details using the SKU
         this.comic = response.data;
+        this.checkAvailability(); // Check the availability once the comic details are fetched
       } catch (error) {
         console.error('Failed to fetch comic details:', error);
       }
     },
+
     async addToCart() {
       const userEmail = localStorage.getItem('userEmail');
 
@@ -137,31 +172,38 @@ export default {
         return;
       }
 
+      if (this.quantity > this.availableQuantity) {
+        alert(`Only ${this.availableQuantity} items are available. Please reduce the quantity.`);
+        return;
+      }
+
       try {
         const response = await getCustomerCart(userEmail);
         this.cartItems = response.data.comicBooks || [];
-        await addBookToCart(response.data.cartId, this.sku);
+        await addBookToCart(response.data.cartId, this.sku, this.quantity);
         alert('Comic added to cart!');
       } catch (error) {
         alert('Failed to add comic to cart.');
       }
     },
+
     toggleWishlist() {
       this.$emit('toggle-wishlist', this.comic.sku);
     },
 
-    authorsList() {
-      return this.comic.authors
-          .map((author) => {
-            const initial = author.name.firstName.charAt(0).toUpperCase();
-            return `${initial}. ${author.name.lastName}`;
-          })
-          .join(', ');
+    async checkAvailability() {
+      try {
+        const response = await getAvailableQuantity(this.sku);
+        this.availableQuantity = response.data.quantity;
+        this.comic.availability = this.availableQuantity > 0 ? `${this.availableQuantity} available` : 'Out of stock';
+      } catch (error) {
+        console.error('Failed to check availability:', error);
+        this.comic.availability = 'Error checking availability';
+      }
     },
-  }
-}
+  },
+};
 </script>
-
 <style scoped>
 .view_item_page-container {
   display: flex;
