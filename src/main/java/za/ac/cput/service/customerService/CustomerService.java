@@ -70,5 +70,6 @@ public class CustomerService implements ICustomerService{
     }
     public  Customer getCustomerByEmail(String email){
         return repository.findByContact_Email(email);
+
     }
 }

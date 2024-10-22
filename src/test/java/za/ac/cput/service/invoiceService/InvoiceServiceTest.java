@@ -54,11 +54,11 @@ class InvoiceServiceTest {
         Address billingAddress = BillingAddressFactory.buildBillingAddress("card", "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
         System.out.println(billingAddress);
 
-        Address shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9,52), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
-        System.out.println(shippingAddress);
+//        Address shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9,52), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
+//        System.out.println(shippingAddress);
 
-        Contact con1 = CustomerContactFactory.buildContact("leroyk10@gmail.com", "0739946042", shippingAddress, billingAddress);
-        Contact con2 = CustomerContactFactory.buildContact("2-mycput.za", "0739946042",  shippingAddress , billingAddress);
+        Contact con1 = CustomerContactFactory.buildContact("leroyk10@gmail.com", "0739946042", billingAddress);
+        Contact con2 = CustomerContactFactory.buildContact("2-mycput.za", "0739946042", billingAddress);
 
         Customer customer1 = CustomerFactory.buildCustomer("Leroy" , "Kulcha", "Liam","Lkulcha123",con1);
         Customer customer2 = CustomerFactory.buildCustomer("James" , "Kulcha", "","jkulcha456",con2);

@@ -13,7 +13,7 @@ import za.ac.cput.domain.*;
 import za.ac.cput.factory.BillingAddressFactory;
 import za.ac.cput.factory.CustomerContactFactory;
 import za.ac.cput.factory.CustomerFactory;
-import za.ac.cput.factory.ShippingAddressFactory;
+//import za.ac.cput.factory.ShippingAddressFactory;
 import za.ac.cput.service.customerService.CustomerService;
 
 import java.time.LocalTime;
@@ -42,13 +42,13 @@ class CustomerControllerTest {
         Address billingAddress = BillingAddressFactory.buildBillingAddress("card", "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
         System.out.println(billingAddress);
 
-        Address shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9, 52), "33 sea Drive", "Kibbler park 2", "2092", "Johannesburg");
-        System.out.println(shippingAddress);
+//        Address shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9, 52), "33 sea Drive", "Kibbler park 2", "2092", "Johannesburg");
+//        System.out.println(shippingAddress);
 
-        Contact con1 = CustomerContactFactory.buildContact("leroy9199228@gmail.com", "0739946042", shippingAddress, billingAddress);
+        Contact con1 = CustomerContactFactory.buildContact("leroy9199228@gmail.com", "0739946042", billingAddress);
         System.out.println(con1);
 
-        Contact con2 = CustomerContactFactory.buildContact("221164014@mycput.ac.za", "0739946042", shippingAddress, billingAddress);
+        Contact con2 = CustomerContactFactory.buildContact("221164014@mycput.ac.za", "0739946042", billingAddress);
 
         customer1 = CustomerFactory.buildCustomer( "Leroy", "Kulcha", "Liam", "Lkulcha123", con1);
         customer2 = CustomerFactory.buildCustomer( "James", "Kulcha", "jkulcha456", con2);

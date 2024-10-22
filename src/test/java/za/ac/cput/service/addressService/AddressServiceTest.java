@@ -1,3 +1,7 @@
+/* Joshua Mokwebo.
+student Number : 22219156
+ */
+
 package za.ac.cput.service.addressService;
 
 import jakarta.persistence.EntityManager;
@@ -10,9 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import za.ac.cput.domain.Address;
 import za.ac.cput.domain.BillingAddress;
-import za.ac.cput.domain.ShippingAddress;
+//import za.ac.cput.domain.ShippingAddress;
 import za.ac.cput.factory.BillingAddressFactory;
-import za.ac.cput.factory.ShippingAddressFactory;
+//import za.ac.cput.factory.ShippingAddressFactory;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -26,27 +30,28 @@ class AddressServiceTest {
     private static BillingAddress billingAddress_out;
     private static BillingAddress billingAddress_updated;
 
-    private static Address shippingAddress_in;
-    private static Address shippingAddress_out;
-    private static Address shippingAddress_updated;
+    // all Shipping Address content is being deprecated. This was  group decision. Toe exclude the shipping Address
+
+//    private static Address shippingAddress_in;
+//    private static Address shippingAddress_out;
+//    private static Address shippingAddress_updated;
 
     @PersistenceContext
     private EntityManager entityManagerger;
 
-    private static Long billingAddressId;
-    private static Long shippingAddressId;
+//    private static Long shippingAddressId;
 
     @Autowired
     BillingAddressService billingAddressService;
-    @Autowired
-    ShippingAddressService shippingAddressService;
+//    @Autowired
+//    ShippingAddressService shippingAddressService;
     @Autowired
     AddressService addressService;
 
     @BeforeAll
     static void setUp() {
-        shippingAddress_in = ShippingAddressFactory.buildShippingAddress(LocalTime.of(18, 0, 0), "109 Kloof Street", "Gardens", "8000", "Cape Town");
-        billingAddress_in = BillingAddressFactory.buildBillingAddress("EFT", "1 Gore Street", "Parade", "8000", "Cape Town");
+//        shippingAddress_in = ShippingAddressFactory.buildShippingAddress(LocalTime.of(18, 0, 0), "109 Kloof Street", "Gardens", "8000", "Cape Town");
+        billingAddress_in = BillingAddressFactory.buildBillingAddress("EFT", "2 Gore Street", "Parade", "8000", "Cape Town");
 
     }
 
@@ -57,7 +62,7 @@ class AddressServiceTest {
         billingAddress_out = billingAddressService.create(billingAddress_in);
         //entityManagerger.flush();
         assertNotNull(billingAddress_out);
-        billingAddressId = billingAddress_out.getId();
+//        billingAddressId = billingAddress_out.getId();
         System.out.println("===========Created Billing Address========");
         System.out.println(billingAddress_out + " BillingAddressId_out: " + billingAddress_out.getId() + " vs " + "BillingAddressId_in: " + billingAddress_in.getId());
     }
@@ -106,60 +111,65 @@ class AddressServiceTest {
 
     // Shipping Address Tests
 
-    @Test
-    @Transactional
-    @Rollback(false)
-    void f_createShippingAddress() {
-        shippingAddress_out = addressService.create(shippingAddress_in);
-        entityManagerger.flush();
-        assertNotNull(shippingAddress_out);
+//    @Disabled
+//    @Test
+//    @Transactional
+//    @Rollback(false)
+//    void f_createShippingAddress() {
+//        shippingAddress_out = addressService.create(shippingAddress_in);
+//        entityManagerger.flush();
+//        assertNotNull(shippingAddress_out);
+//
+//        shippingAddressId = shippingAddress_out.getId();
+//        System.out.println("========== Created Shipping Address=========");
+//        System.out.println(shippingAddress_out + "ShippindAddressID: " + shippingAddressId);
+//    }
+//
+//    @Disabled
+//    @Test
+//    void g_readShippingAddress() {
+//
+//        shippingAddress_out = shippingAddressService.read(6L);
+//        assertNotNull(shippingAddress_out);
+//        System.out.println("===========Shipping Address from Database========");
+//        System.out.println(shippingAddress_out + "ID: " + shippingAddress_out.getId());
+//
+//    }
+//    @Disabled
+//    @Test
+//    void h_updateShippingAddress() {
+//        shippingAddress_updated = new ShippingAddress.ShippingAddressBuilder().copy(shippingAddress_in).setCity("Los Angeles").build();
+//        addressService.update(shippingAddress_updated);
+//        assertNotEquals(shippingAddress_updated, shippingAddress_in);
+//        System.out.println("===========Updated Shipping Address ========");
+//        System.out.println(shippingAddress_updated);
+//    }
+//
+//    @Disabled
+//    @Test
+//    void i_deleteShippingAddress() {
+//        addressService.delete(5L);
+//        shippingAddress_out = shippingAddressService.read(5L);
+//        assertNull(shippingAddress_out);
+//        System.out.println("The  Shipping address has been deleted");
+//    }
+//
+//    @Disabled
+//    @Test
+//    void j_getallShippingAddress() {
+//        List<ShippingAddress> shippingAddress = shippingAddressService.getallShippingAddress();
+//        assertNotNull(shippingAddress);
+//        assertTrue(shippingAddress.size() > 0);
+//
+//        int addressListSize = shippingAddress.size();
+//        while (addressListSize > 0) {
+//            addressListSize--;
+//            System.out.println(shippingAddress.get(addressListSize).getSuburb() + "\n");
+//
+//        }
+//
+//
+//    }
 
-        shippingAddressId = shippingAddress_out.getId();
-        System.out.println("========== Created Shipping Address=========");
-        System.out.println(shippingAddress_out + "ShippindAddressID: " + shippingAddressId);
-    }
-
-    @Test
-    void g_readShippingAddress() {
-
-        shippingAddress_out = shippingAddressService.read(6L);
-        assertNotNull(shippingAddress_out);
-        System.out.println("===========Shipping Address from Database========");
-        System.out.println(shippingAddress_out + "ID: " + shippingAddress_out.getId());
-
-    }
-
-    @Test
-    void h_updateShippingAddress() {
-        shippingAddress_updated = new ShippingAddress.ShippingAddressBuilder().copy(shippingAddress_in).setCity("Los Angeles").build();
-        addressService.update(shippingAddress_updated);
-        assertNotEquals(shippingAddress_updated, shippingAddress_in);
-        System.out.println("===========Updated Shipping Address ========");
-        System.out.println(shippingAddress_updated);
-    }
-
-    @Test
-    void i_deleteShippingAddress() {
-        addressService.delete(5L);
-        shippingAddress_out = shippingAddressService.read(5L);
-        assertNull(shippingAddress_out);
-        System.out.println("The  Shipping address has been deleted");
-    }
-
-    @Test
-    void j_getallShippingAddress() {
-        List<ShippingAddress> shippingAddress = shippingAddressService.getallShippingAddress();
-        assertNotNull(shippingAddress);
-        assertTrue(shippingAddress.size() > 0);
-
-        int addressListSize = shippingAddress.size();
-        while (addressListSize > 0) {
-            addressListSize--;
-            System.out.println(shippingAddress.get(addressListSize).getSuburb() + "\n");
-
-        }
-
-
-    }
 }
 

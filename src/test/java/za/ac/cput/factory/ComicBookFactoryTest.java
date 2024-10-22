@@ -44,7 +44,7 @@ class ComicBookFactoryTest {
     @BeforeEach
     void setUp() {
 
-        String url = "C:\\Users\\ASUS\\OneDrive - Cape Peninsula University of Technology\\Documents\\3rd-Year\\ADP3\\comic_city_project\\download.jpeg";
+        String url = "C:\\Users\\PC\\Documents\\javaApplications\\My_comic_city_project_0.1\\images\\ComicBookCover1.jpeg";
         try {
 
             image = ImageIO.read(new File(url));

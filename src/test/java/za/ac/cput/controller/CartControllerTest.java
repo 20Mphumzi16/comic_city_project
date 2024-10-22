@@ -75,11 +75,11 @@ class CartControllerTest {
         billingAddress1 = BillingAddressFactory.buildBillingAddress("card", "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
         System.out.println(billingAddress1);
 
-        shippingAddress1 = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9, 52), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
-        System.out.println(shippingAddress1);
+//        shippingAddress1 = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9, 52), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
+//        System.out.println(shippingAddress1);
 
         //Contact
-        Contact con1 = CustomerContactFactory.buildContact("leroyk997379@gmail.com", "0739946042", shippingAddress1, billingAddress1);
+        Contact con1 = CustomerContactFactory.buildContact("leroyk997379@gmail.com", "0739946042", billingAddress1);
         System.out.println(con1);
 
         customer1 = CustomerFactory.buildCustomer( "Leroy", "Kulcha", "Liam", "Lkulcha123", con1);

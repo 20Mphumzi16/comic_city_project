@@ -15,8 +15,8 @@ public class CustomerContact extends Contact {
     @OneToOne(cascade = CascadeType.ALL)
     private BillingAddress billingAddress;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private ShippingAddress shippingAddress;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    private ShippingAddress shippingAddress;
 
     protected CustomerContact() {
 
@@ -24,7 +24,7 @@ public class CustomerContact extends Contact {
 
     private CustomerContact(CustomerContactBuilder customerContactBuilder) {
         super(customerContactBuilder);
-        this.shippingAddress = customerContactBuilder.shippingAddress;
+        //this.shippingAddress = customerContactBuilder.shippingAddress;
         this.billingAddress = customerContactBuilder.billingAddress;
     }
 
@@ -34,27 +34,43 @@ public class CustomerContact extends Contact {
         return billingAddress;
     }
 
-    public ShippingAddress getShippingAddress() {
-        return shippingAddress;
-    }
+//    public ShippingAddress getShippingAddress() {
+//        return shippingAddress;
+//    }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof CustomerContact that)) return false;
+//        return Objects.equals(billingAddress, that.billingAddress) && Objects.equals(shippingAddress, that.shippingAddress);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(billingAddress, shippingAddress);
+//    }
+
+
+    // A new Equals and hash code.
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CustomerContact that)) return false;
-        return Objects.equals(billingAddress, that.billingAddress) && Objects.equals(shippingAddress, that.shippingAddress);
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof CustomerContact that)) return false;
+        if (!super.equals(object)) return false;
+        return Objects.equals(billingAddress, that.billingAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(billingAddress, shippingAddress);
+        return Objects.hash(super.hashCode(), billingAddress);
     }
 
     @Override
     public String toString() {
         return "CustomerContact{" +
                 "billingAddress=" + billingAddress +
-                ", shippingAddress=" + shippingAddress +
+                //", shippingAddress=" + shippingAddress +
                 ", email='" + email + '\'' +
                 ", mobile='" + mobile + '\'' +
                 '}';
@@ -63,7 +79,7 @@ public class CustomerContact extends Contact {
     public static class CustomerContactBuilder extends ContactBuilder{
 
         private BillingAddress billingAddress;
-        private ShippingAddress shippingAddress;
+        //private ShippingAddress shippingAddress;
 
         public CustomerContactBuilder() {
             super();
@@ -76,14 +92,14 @@ public class CustomerContact extends Contact {
             return this;
         }
 
-        public CustomerContactBuilder setShippingAddress(ShippingAddress shippingAddress) {
-            this.shippingAddress = shippingAddress;
-            return this;
-        }
+//        public CustomerContactBuilder setShippingAddress(ShippingAddress shippingAddress) {
+//            this.shippingAddress = shippingAddress;
+//            return this;
+//        }
 
         public CustomerContactBuilder copy(CustomerContact contact) {
             super.copy(contact);
-            this.shippingAddress = contact.shippingAddress;
+            //this.shippingAddress = contact.shippingAddress;
             this.billingAddress = contact.billingAddress;
             return this;
         }

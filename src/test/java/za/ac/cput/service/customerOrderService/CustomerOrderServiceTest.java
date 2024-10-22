@@ -13,7 +13,9 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -68,9 +70,15 @@ class CustomerOrderServiceTest {
         comicBooks.add(comicBook1);
 
         Address billingAddress = BillingAddressFactory.buildBillingAddress("card", "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
-        Address shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9, 52), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
+        System.out.println(billingAddress);
 
-        Contact con1 = CustomerContactFactory.buildContact("leroyk@gmail.com", "0739946042", shippingAddress, billingAddress);
+//        Address shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9,52), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
+//        System.out.println(shippingAddress);
+
+        Contact con1 = CustomerContactFactory.buildContact("leroy1@gmail.com", "0739946042", billingAddress);
+        Contact con2 = CustomerContactFactory.buildContact("221164014@mycput.ac.za", "0739946042" , billingAddress);
+
+
         Customer customer1 = customerService.read(1L);
         if (customer1 == null) {
             customer1 = CustomerFactory.buildCustomer("Leroy", "Kulcha", "Liam", "Lkulcha123", con1);
@@ -114,9 +122,10 @@ class CustomerOrderServiceTest {
         System.out.println(savedCustomerOrder);
     }
 
+
     @Test
     @Order(4)
-    void getAll() {
+    void getall(){
         System.out.println("==================================GET ALL===========================");
         System.out.println(customerOrderService.getall());
     }
@@ -124,6 +133,7 @@ class CustomerOrderServiceTest {
     @Test
     @Order(5)
     void delete() {
+
         boolean isDeleted = customerOrderService.delete(savedCustomerOrder.getOrderId());
         assertTrue(isDeleted);
         System.out.println("CustomerOrder no " + savedCustomerOrder.getOrderId() + " deleted");

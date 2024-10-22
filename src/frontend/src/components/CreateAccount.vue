@@ -22,8 +22,8 @@
       <label for="billingAddress">Billing Address:</label>
       <input id="billingAddress" v-model="customer.contact.billingAddress" placeholder="Billing Address"/>
 
-      <label for="shippingAddress">Shipping Address:</label>
-      <input id="shippingAddress" v-model="customer.contact.shippingAddress" placeholder="Shipping Address"/>
+<!--      <label for="shippingAddress">Shipping Address:</label>-->
+<!--      <input id="shippingAddress" v-model="customer.contact.shippingAddress" placeholder="Shipping Address"/>-->
 
       <label for="password">Password:</label>
       <input id="password" type="password" v-model="customer.password" placeholder="Password" required/>
@@ -55,7 +55,7 @@ export default {
           email: '',
           mobile: '',
           billingAddress: '',
-          shippingAddress: ''
+          //shippingAddress: ''
         }
       },
       errorMessage: ''

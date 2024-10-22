@@ -61,9 +61,9 @@ class ReviewControllerTest {
 
         Address billingAddress = BillingAddressFactory.buildBillingAddress("EFT", "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
 
-        Address shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.parse("22:00:00"), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
+//        Address shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.parse("22:00:00"), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
 
-        Contact con1 = CustomerContactFactory.buildContact("leroyukh@gmail.com", "0739946042", shippingAddress, billingAddress);
+        Contact con1 = CustomerContactFactory.buildContact("leroyukh@gmail.com", "0739946042", billingAddress);
         customer = CustomerFactory.buildCustomer( "Leroy", "Kulcha", "Sane", "Lkulcha123", con1);
 
         author1 = AuthorFactory.buildAuthor(001L, "Lamark", "Mike", "Darwin");

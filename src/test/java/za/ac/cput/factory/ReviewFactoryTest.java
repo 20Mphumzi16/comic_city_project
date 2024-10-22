@@ -45,10 +45,10 @@ class ReviewFactoryTest {
                 buildBillingAddress("card", "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
         System.out.println(billingAddress);
 
-        Address shippingAddress = new ShippingAddressFactory().buildShippingAddress(LocalTime.parse("10:30:00"), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
-        System.out.println(shippingAddress);
+//        Address shippingAddress = new ShippingAddressFactory().buildShippingAddress(LocalTime.parse("10:30:00"), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
+//        System.out.println(shippingAddress);
 
-        Contact con1 = CustomerContactFactory.buildContact("leroyk@gmail.com", "0739946042", shippingAddress, billingAddress);
+        Contact con1 = CustomerContactFactory.buildContact("leroyk@gmail.com", "0739946042", billingAddress);
         customer = CustomerFactory.buildCustomer("Leroy" , "Kulcha", "Sane","Lkulcha123",con1);
 
 

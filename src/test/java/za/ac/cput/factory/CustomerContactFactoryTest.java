@@ -18,9 +18,9 @@ class CustomerContactFactoryTest {
     void a_buildContact() {
         billingAddress = BillingAddressFactory.
                 buildBillingAddress("card","34 Batersea Drive", "Kibbler park" , "2091" , "Johannesburg");
-        shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.parse("18:00:00"),"210LoopSteert","Cape Town","8000","Cape Town");
+//        shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.parse("18:00:00"),"210LoopSteert","Cape Town","8000","Cape Town");
 
-        Contact contact1=CustomerContactFactory.buildContact("mphumzimbula@gmail.com","0658436358",shippingAddress,billingAddress);
+        Contact contact1=CustomerContactFactory.buildContact("mphumzimbula@gmail.com","0658436358",billingAddress);
         assertNotNull(contact1);
         System.out.println(contact1);
 
@@ -30,9 +30,9 @@ class CustomerContactFactoryTest {
     void b_buildContactFailTest() {
         billingAddress = BillingAddressFactory.
                 buildBillingAddress("card","34 Batersea Drive", "Kibbler park" , "2091" , "Johannesburg");
-        shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.parse("18:00:00"),"210LoopSteert","Cape Town","8000","Cape Town");
+//        shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.parse("18:00:00"),"210LoopSteert","Cape Town","8000","Cape Town");
 
-        Contact contact1=CustomerContactFactory.buildContact("mphumzimbula@gmail.com","",shippingAddress,billingAddress);
+        Contact contact1=CustomerContactFactory.buildContact("mphumzimbula@gmail.com","",billingAddress);
         assertNotNull(contact1);
         System.out.println(contact1);
     }

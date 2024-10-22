@@ -60,10 +60,10 @@ class ReviewServiceTest {
         publisher = PublisherFactory.buildPublisher(5L, "Marvel",2000);
 
         Address billingAddress = BillingAddressFactory.buildBillingAddress("EFT", "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
-
-        Address shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.parse("19:00:00"), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
-
-        Contact con1 = CustomerContactFactory.buildContact("leroyy1@gmail.com", "0739946042", shippingAddress, billingAddress);
+//
+//        Address shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.parse("19:00:00"), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
+//
+        Contact con1 = CustomerContactFactory.buildContact("leroyy1@gmail.com", "0739946042", billingAddress);
         customer = CustomerFactory.buildCustomer("Leroy" , "Kulcha", "Sane","Lkulcha123",con1);
 
 

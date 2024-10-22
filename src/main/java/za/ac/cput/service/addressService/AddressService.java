@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Address;
 import za.ac.cput.domain.BillingAddress;
-import za.ac.cput.domain.ShippingAddress;
+//import za.ac.cput.domain.ShippingAddress;
 import za.ac.cput.repository.addressRepository.AddressRepository;
 import za.ac.cput.repository.addressRepository.BillingAddressRepository;
-import za.ac.cput.repository.addressRepository.ShippingAddressRepository;
+//import za.ac.cput.repository.addressRepository.ShippingAddressRepository;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,16 +1,15 @@
 package za.ac.cput.controller;
 
-import net.minidev.json.JSONUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.BillingAddress;
 import za.ac.cput.service.addressService.BillingAddressService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/billing_address")
+@CrossOrigin(origins = "http://localhost:3000")
 public class BillingAddressController {
 
     private BillingAddressService billingAddressService;
@@ -52,5 +51,10 @@ public class BillingAddressController {
 
     @GetMapping("/getall")
     public List<BillingAddress> getall(){return billingAddressService.getallBillingAddress();}
+
+    @GetMapping("/csrf-token")
+    public Object getCsrfToken(HttpServletRequest request){
+        return request.getAttribute( "_csrf");
+    }
 
 }

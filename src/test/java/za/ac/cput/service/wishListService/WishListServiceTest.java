@@ -192,30 +192,30 @@ class WishListServiceTest {
         billingAddress1 = BillingAddressFactory.buildBillingAddress("card", "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
         System.out.println(billingAddress1);
 
-        shippingAddress1 = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9, 52), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
-        System.out.println(shippingAddress1);
+//        shippingAddress1 = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9, 52), "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
+//        System.out.println(shippingAddress1);
 
 
         billingAddress2 = BillingAddressFactory.buildBillingAddress("card", "5 Mpetsheni Cresent", "Khayelitsha", "7784", "Cape Town");
         System.out.println(billingAddress2);
 
-        shippingAddress2 = ShippingAddressFactory.buildShippingAddress(LocalTime.of(6, 30), "5 Mpetsheni Cresen", "Khayelitsha", "7784", "Cape Town");
-        System.out.println(shippingAddress2);
+//        shippingAddress2 = ShippingAddressFactory.buildShippingAddress(LocalTime.of(6, 30), "5 Mpetsheni Cresen", "Khayelitsha", "7784", "Cape Town");
+//        System.out.println(shippingAddress2);
 
         billingAddress3 = BillingAddressFactory.buildBillingAddress("card", "Ny 121 No 28", "Guguletu", "7750", "Cape Town");
         System.out.println(billingAddress3);
 
-        shippingAddress3 = ShippingAddressFactory.buildShippingAddress(LocalTime.of(5, 37), "Ny 121 No 28", "Guguletu", "7750", "Cape Town");
-        System.out.println(shippingAddress3);
+//        shippingAddress3 = ShippingAddressFactory.buildShippingAddress(LocalTime.of(5, 37), "Ny 121 No 28", "Guguletu", "7750", "Cape Town");
+//        System.out.println(shippingAddress3);
 
 
-        Contact con1 = CustomerContactFactory.buildContact("leroy1@gmail.com", "0739946042", shippingAddress1, billingAddress1);
+        Contact con1 = CustomerContactFactory.buildContact("leroy1@gmail.com", "0739946042", billingAddress1);
         System.out.println(con1);
 
-        Contact con2 = CustomerContactFactory.buildContact("james1@gmail.com", "0739946042", shippingAddress2, billingAddress2);
+        Contact con2 = CustomerContactFactory.buildContact("james1@gmail.com", "0739946042", billingAddress2);
         System.out.println(con2);
 
-        Contact con3 = CustomerContactFactory.buildContact("vxayiya1@gmail.com", "0835805117", shippingAddress3, billingAddress3);
+        Contact con3 = CustomerContactFactory.buildContact("vxayiya1@gmail.com", "0835805117", billingAddress3);
         System.out.println(con3);
 
         customer1 = CustomerFactory.buildCustomer("Leroy", "Kulcha", "Liam", "Lkulcha123", con1);

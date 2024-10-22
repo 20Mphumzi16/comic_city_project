@@ -1,4 +1,5 @@
 <template>
+
   <div class="comic-card">
 
       <img :src="comicImage" alt="Comic Cover" class="comic-image" @click="selectComic"/>
@@ -78,7 +79,8 @@ export default {
       selectComic() {
         this.$emit('comic-selected', this.comic.sku);
       }
-  }
+  },
+
 };
 </script>
 <style scoped>

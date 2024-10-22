@@ -4,14 +4,14 @@ import org.junit.jupiter.api.*;
 import za.ac.cput.domain.Address;
 import za.ac.cput.domain.BillingAddress;
 import za.ac.cput.domain.Contact;
-import za.ac.cput.domain.ShippingAddress;
+//import za.ac.cput.domain.ShippingAddress;
 
 import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class AdminContactFactoryTest {
     static Contact adminContact;
     static BillingAddress billingAddress;
-    static ShippingAddress shippingAddress;
+    //static ShippingAddress shippingAddress;
 
     @BeforeAll
     static void setUp() {

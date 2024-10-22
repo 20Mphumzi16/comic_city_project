@@ -1,4 +1,3 @@
-
 <template>
   <div class="addresses-page">
     <div class="main-content">
@@ -6,7 +5,7 @@
         <i class="fas fa-map-marker-alt"></i>
         <h1>Addresses</h1>
       </div>
-      <p>The following addresses will be used on the checkout page by default</p>
+      <p>The following address will be used on the checkout page by default</p>
       <div class="addresses">
         <div class="address-box">
           <h2>Billing address</h2>
@@ -16,35 +15,37 @@
           </div>
           <div v-else>
             <p>You have not set up this type of address yet</p>
-            <button class="add-address-button" @click="goToBillingAddress">ADD ADDRESS</button>
+            <button class="add-address-button" @click="openModal">ADD ADDRESS</button>
           </div>
         </div>
-        <div class="address-box">
-          <h2>Shipping address</h2>
-          <p>You have not set up this type of address yet</p>
-          <button class="add-address-button" @click="goToShippingAddress">ADD ADDRESS</button>
-        </div>
       </div>
+      <billing-address-modal
+          :isVisible="isModalVisible"
+          @close="isModalVisible = false"
+          @address-added="fetchBillingAddress"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import BillingAddressModal from './BillingAddressModal.vue';
 
 export default {
   name: 'AddressesPage',
+  components: {
+    BillingAddressModal,
+  },
   data() {
     return {
-      billingAddress: null // This will store the fetched billing address
+      billingAddress: null, // This will store the fetched billing address
+      isModalVisible: false, // State to control modal visibility
     };
   },
   methods: {
-    goToBillingAddress() {
-      this.$router.push('/billing-address');
-    },
-    goToShippingAddress() {
-      this.$router.push('/shipping-address');
+    openModal() {
+      this.isModalVisible = true; // Show the modal
     },
     fetchBillingAddress() {
       // Fetch the billing address from the backend
@@ -91,13 +92,10 @@ export default {
 }
 
 .addresses {
-  display: flex;
-  justify-content: space-between;
   margin-top: 20px;
 }
 
 .address-box {
-  width: 45%;
   border: 1px solid #ccc;
   padding: 20px;
   text-align: center;

@@ -37,16 +37,16 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         // Public routes
-                        .requestMatchers("/", "/auth/login","/login", "/signUp").permitAll() // Public routes
+                        .requestMatchers("/", "/auth/login","/login", "/signUp/**","/Customer/**").permitAll() // Public routes
 
                         // Expose only the read method
                         .requestMatchers(HttpMethod.GET, "/comic_book/read/**").permitAll() // Public access to read
                         .requestMatchers(HttpMethod.GET, "/comic_book/getAll").permitAll()
                         // Admin routes
                         .requestMatchers("/admin/**", "/genres/**",
-                                         "/comic_book/**" ,"/author/**",
-                                        "/Publisher/**")
-                                        .hasRole("ADMIN")
+                                "/comic_book/**" ,"/author/**",
+                                "/Publisher/**")
+                        .hasRole("ADMIN")
 
                         // Customer routes
                         .requestMatchers("/customer/**").hasRole("CUSTOMER")
@@ -77,7 +77,3 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 }
-
-
-
-

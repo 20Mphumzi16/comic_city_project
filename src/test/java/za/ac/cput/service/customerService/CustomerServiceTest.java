@@ -35,20 +35,25 @@ class CustomerServiceTest {
 
         Address billingAddress = BillingAddressFactory.buildBillingAddress("card", "34 Batersea Drive", "Kibbler park", "2091", "Johannesburg");
         System.out.println(billingAddress);
-
-        Address shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9, 52), "33 sea Drive", "Kibbler park 2", "2092", "Johannesburg");
-        System.out.println(shippingAddress);
+//
+//        Address shippingAddress = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9, 52), "33 sea Drive", "Kibbler park 2", "2092", "Johannesburg");
+//        System.out.println(shippingAddress);
 
         Address billingAddress2 = BillingAddressFactory.buildBillingAddress("card", "34 sea Drive", "Kibb park 2", "2092", "Johannesburg");
         System.out.println(billingAddress);
 
-        Address shippingAddress2 = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9, 52), "33 sea Drive 2", "Kibbler park 2", "2092", "Johannesburg");
-        System.out.println(shippingAddress);
+//        Address shippingAddress2 = ShippingAddressFactory.buildShippingAddress(LocalTime.of(9, 52), "33 sea Drive 2", "Kibbler park 2", "2092", "Johannesburg");
+//        System.out.println(shippingAddress);
 
-        Contact con1 = CustomerContactFactory.buildContact("leroy8@gmail.com", "0739946042", shippingAddress, billingAddress);
+//        Contact con1 = CustomerContactFactory.buildContact("leroy8@gmail.com", "0739946042", shippingAddress, billingAddress);
+//        System.out.println(con1);
+
+        Contact con1 = CustomerContactFactory.buildContact("leroy8@gmail.com", "0739946042", billingAddress);
         System.out.println(con1);
 
-        Contact con2 = CustomerContactFactory.buildContact("jimmy2@gmail.com", "0739946042", shippingAddress2, billingAddress2);
+
+//        Contact con2 = CustomerContactFactory.buildContact("jimmy2@gmail.com", "0739946042", shippingAddress2, billingAddress2);
+        Contact con2 = CustomerContactFactory.buildContact("jimmy2@gmail.com", "0739946042", billingAddress2);
 
         customer1 = CustomerFactory.buildCustomer("Leroy", "Kulcha", "Liam", "l@123", con1);
         customer2 = CustomerFactory.buildCustomer("James", "Kulcha", "Jimmy", "k@123", con2);
@@ -111,7 +116,7 @@ class CustomerServiceTest {
     @Order(6)
     void getByEmail(){
         System.out.println("==================================GET By Email===========================");
-       Customer customer=service.getCustomerByEmail("vxayiya@gmail.com");
+       Customer customer=service.getCustomerByEmail("jimmy2@gmail.com");
        assertNotNull(customer);
        System.out.println(customer);
     }

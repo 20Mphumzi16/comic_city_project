@@ -24,7 +24,7 @@ class AdminFactoryTest {
 
     @BeforeAll
     static void setUp() {
-        adminAddress1 = ShippingAddressFactory.buildShippingAddress(LocalTime.of(16,00,00),"106 Gasela", "Guguletu", "7750", "Cape Town");
+        //adminAddress1 = ShippingAddressFactory.buildShippingAddress(LocalTime.of(16,00,00),"106 Gasela", "Guguletu", "7750", "Cape Town");
         adminContact1 = AdminContactFactory.buildContact("mphumzimbula@gmail.com", "0658436358", adminAddress1);
         admin1 = AdminFactory.buildAdmin("Mpumzi", "Mbula", "20Mphmbu16!", adminContact1);
 
