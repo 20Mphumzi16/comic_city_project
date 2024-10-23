@@ -1,15 +1,10 @@
-<!--//sethu-->
-
-
-
-
 
 <template>
   <div class="billing-address-page">
     <div class="main-content">
       <div class="billing-header">
         <i class="fas fa-map-marker-alt"></i>
-        <h1>Billing address</h1>
+        <h1>Billing Address</h1>
       </div>
 
 
@@ -18,14 +13,14 @@
           <label for="payment-method">Payment Method</label>
           <select id="payment-method" v-model="paymentMethod" required>
             <option disabled value="">Select a payment method</option>
-            <option value="credit-card">Credit Card</option>
-            <option value="paypal">PayPal</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="PayPal">PayPal</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="street-address">Street Address</label>
-          <input type="text" id="street-address" v-model="streetAddress" required />
+          <input type="text" id="street-address" v-model="street" required />
         </div>
 
         <div class="form-group">
@@ -62,14 +57,13 @@
         <h2>Your Billing Addresses</h2>
         <ul>
           <li v-for="address in billingAddresses" :key="address.id">
-            {{ address.streetAddress }}, {{ address.suburb }}, {{ address.city }}, {{ address.postalCode }} - {{ address.paymentMethod }}
+            {{ address.street }}, {{ address.suburb }}, {{ address.city }}, {{ address.postalCode }} - {{ address.paymentMethod }}
           </li>
         </ul>
       </div>
     </div>
   </div>
 </template>
-
 
 <script>
 import axios from 'axios';
@@ -78,8 +72,9 @@ export default {
   name: 'BillingAddressPage',
   data() {
     return {
+      addressId: null, // Holds the ID of the address being edited
       paymentMethod: '',
-      streetAddress: '',
+      street: '',
       suburb: '',
       city: '',
       postalCode: '',
@@ -91,14 +86,19 @@ export default {
   methods: {
     saveBillingAddress() {
       const billingAddress = {
+        id: this.addressId,  // Ensure we are sending the address ID for updates
         paymentMethod: this.paymentMethod,
-        streetAddress: this.streetAddress,
+        street: this.street,
         suburb: this.suburb,
         city: this.city,
         postalCode: this.postalCode
       };
 
-      axios.post('/billing_address/create', billingAddress)
+      const url = this.addressId
+          ? '/api/comiccity/billing_address/update'
+          : '/api/comiccity/billing_address/create';
+
+      axios.post(url, billingAddress)
           .then(() => {
             this.successMessage = 'Billing address saved successfully!';
             this.errorMessage = '';
@@ -107,36 +107,57 @@ export default {
           })
           .catch(error => {
             this.successMessage = '';
-            this.errorMessage = 'There was an error saving the billing address: ' + error.response?.data?.message || error.message;
+            this.errorMessage = 'Error saving the billing address: ' + (error.response?.data?.message || error.message);
           });
     },
     fetchBillingAddresses() {
-      axios.get('/billing_address/getall')
+      axios.get('/api/comiccity/billing_address/getall')
           .then(response => {
             this.billingAddresses = response.data;
           })
           .catch(error => {
-            this.errorMessage = 'There was an error fetching the billing addresses: ' + error.response?.data?.message || error.message;
+            this.errorMessage = 'Error fetching the billing addresses: ' + (error.response?.data?.message || error.message);
           });
+    },
+    fetchBillingAddress() {
+      const addressId = this.$route.query.addressId;
+      if (addressId) {
+        axios.get(`/api/comiccity/billing_address/${addressId}`)
+            .then(response => {
+              const address = response.data;
+              this.paymentMethod = address.paymentMethod;
+              this.street = address.street;
+              this.suburb = address.suburb;
+              this.city = address.city;
+              this.postalCode = address.postalCode;
+              this.addressId = address.id;
+            })
+            .catch(error => {
+              console.error('Error fetching billing address:', error.response?.data?.message || error.message);
+            });
+      }
     },
     cancel() {
       this.resetForm();
     },
     resetForm() {
       this.paymentMethod = '';
-      this.streetAddress = '';
+      this.street = '';
       this.suburb = '';
       this.city = '';
       this.postalCode = '';
+      this.addressId = null; // Reset the address ID when canceling or after saving
     }
   },
   mounted() {
     this.fetchBillingAddresses();
+    this.fetchBillingAddress(); // Fetch the specific address if editing
   }
 };
 </script>
 
 <style scoped>
+/* Same styles as before */
 .billing-address-page {
   display: flex;
   padding: 20px;

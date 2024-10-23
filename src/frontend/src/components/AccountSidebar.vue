@@ -1,13 +1,12 @@
-
 <template>
   <div class="account-sidebar">
     <h2>MY ACCOUNT</h2>
     <ul>
-      <li :class="{ active: isActive('/') }" @click="goToPage('/')">Dashboard</li>
-      <li :class="{ active: isActive('/orders') }" @click="goToPage('/orders')">Orders</li>
-      <li :class="{ active: isActive('/addresses') }" @click="goToPage('/addresses')">Addresses</li>
-      <li :class="{ active: isActive('/account-details') }" @click="goToPage('/account-details')">Account details</li>
-      <li :class="{ active: isActive('/wishlist') }" @click="goToPage('/wishlist')">Wishlist</li>
+      <li :class="{ active: isActive('/customer/dashboard') }" @click="goToPage('/customer/dashboard')">Dashboard</li>
+      <li :class="{ active: isActive('/customer/orders') }" @click="goToPage('/customer/orders')">Orders</li>
+      <li :class="{ active: isActive('/customer/addresses') }" @click="goToPage('/customer/addresses')">Addresses</li>
+      <li :class="{ active: isActive('/customer/account-details') }" @click="goToPage('/customer/account-details')">Account details</li>
+      <li :class="{ active: isActive('/customer/wishlist') }" @click="goToPage('/customer/wishlist')">Wishlist</li>
       <li @click="goToPage('/logout')">LogOut</li>
     </ul>
   </div>
@@ -57,7 +56,7 @@ export default {
 
 .account-sidebar li.active {
   font-weight: bold;
-  background-color: #d1e7dd; /* Active state background */
+  background-color: #d1e7dd;
 }
 
 .account-sidebar li::after {
@@ -67,3 +66,4 @@ export default {
   margin: 5px 0;
 }
 </style>
+<!--sethu-->
