@@ -1,7 +1,7 @@
 <template>
   <div class="create-customer-container">
     <h1 class="title">Create a Customer Account</h1>
-    <!-- Importing and using the spinner -->
+
     <SpinnerComponent :visible="loading" />
     <form @submit.prevent="handleSubmit">
       <label for="firstName">First Name:</label>
@@ -14,10 +14,10 @@
       <input id="lastName" v-model="customer.lastName" placeholder="Last Name" required/>
 
       <label for="email">Email:</label>
-      <input id="email" type="email" v-model="customer.contact.email" placeholder="Email" required/>
+      <input id="email" type="email"  v-model="customer.contact.email" placeholder="Email" required/>
 
       <label for="mobile">Mobile:</label>
-      <input id="mobile" v-model="customer.contact.mobile" placeholder="Mobile"/>
+      <input id="mobile" type="tel" pattern="\d{10}" v-model="customer.contact.mobile" placeholder="Mobile"/>
 
       <label for="billingAddress">Billing Address:</label>
       <input id="billingAddress" v-model="customer.contact.billingAddress" placeholder="Billing Address"/>
@@ -39,7 +39,7 @@ import CustomerService from '@/services/CustomerService';
 import {assignCartToCustomer} from "@/services/cartService";
 import {assignWishListToCustomer} from "@/services/wishlistService";
 import SpinnerComponent from "@/components/SpinnerComponent.vue";
-import * as ContactService from "@/services/ContactService"; // Ensure you have this service to handle the API calls
+import * as ContactService from "@/services/ContactService";
 
 export default {
   components:{
@@ -119,7 +119,7 @@ export default {
         this.errorMessage = 'Failed to create account.';
       }
       finally {
-        this.loading = false; // Hide spinner
+        this.loading = false;
       }
     }
   },
@@ -128,7 +128,7 @@ export default {
 
 <style scoped>
 
-/* Disable button when loading */
+
 button[disabled] {
   background-color: #ccc;
   cursor: not-allowed;

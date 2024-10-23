@@ -7,7 +7,7 @@
         <h1>Billing Address</h1>
       </div>
 
-      <!-- Display form -->
+
       <form @submit.prevent="saveBillingAddress">
         <div class="form-group">
           <label for="payment-method">Payment Method</label>
@@ -44,7 +44,7 @@
         </div>
       </form>
 
-      <!-- Display success or error messages -->
+
       <div v-if="successMessage" class="success-message">
         {{ successMessage }}
       </div>
@@ -52,7 +52,7 @@
         {{ errorMessage }}
       </div>
 
-      <!-- Display fetched billing addresses -->
+
       <div v-if="billingAddresses.length">
         <h2>Your Billing Addresses</h2>
         <ul>

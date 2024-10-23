@@ -50,6 +50,7 @@ import {getCustomerWishList, removeBookFromWishList} from "@/services/wishlistSe
 import {addBookToCart, getCustomerCart} from "@/services/cartService";
 
 import NavBar from "@/components/NavBar.vue";
+import {jwtDecode} from "jwt-decode";
 
 export default {
   components: {
@@ -75,21 +76,28 @@ export default {
       return 'R ' + amount.toFixed(2);
     },
     async fetchWishlist() {
-      this.userEmail=localStorage.getItem('userEmail')
-      try {
-        const response = await getCustomerWishList(this.userEmail);
-        this.wishList = response.data;
 
-        if (this.wishList.comicBooks.length > 0) {
-          const randomIndex = Math.floor(Math.random() * this.wishList.comicBooks.length);
-          this.wishList.comicBooks.forEach((item, index) => {
-            item.inStock = index === randomIndex;
-          });
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        const decodedToken = jwtDecode(token);
+        this.isAuthenticated = true;
+
+        this.userEmail = decodedToken.sub;
+        try {
+          const response = await getCustomerWishList(this.userEmail);
+          this.wishList = response.data;
+
+          if (this.wishList.comicBooks.length > 0) {
+            const randomIndex = Math.floor(Math.random() * this.wishList.comicBooks.length);
+            this.wishList.comicBooks.forEach((item, index) => {
+              item.inStock = index === randomIndex;
+            });
+          }
+
+          this.wishlistItems = this.wishList.comicBooks;
+        } catch (error) {
+          console.error("Error fetching wishlist:", error);
         }
-
-        this.wishlistItems = this.wishList.comicBooks;
-      } catch (error) {
-        console.error("Error fetching wishlist:", error);
       }
     },
     async remove(item) {
@@ -111,7 +119,7 @@ export default {
         const response=await getCustomerCart(this.userEmail);
         this.cart = response.data;
         this.cartItems=this.cart.comicBooks||[];
-        await addBookToCart(this.cart.cartId, item.sku); // Send the correct SKU to the API
+        await addBookToCart(this.cart.cartId, item.sku);
         alert(`${item.name} has been added to your cart!`);
 
       } catch (error) {

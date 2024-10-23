@@ -42,7 +42,7 @@
       <tr v-for="author in authors" :key="author.authorID">
         <td>{{ author.authorID }}</td>
         <td>{{ formatAuthorName(author) }}</td>
-        <td>{{ author.name.lastName }}</td>
+        <td>{{ author.name.lastName || ''}}</td>
         <td class="actions">
           <button @click="editAuthor(author.authorID)">Edit</button>
           <button @click="confirmDelete(author.authorID)" class="delete">Delete</button>
@@ -58,6 +58,10 @@
 
 <script>
 
+
+import {deleteAuthor, getAllAuthors, searchAuthorsByName} from "@/services/AuthorService";
+
+
 export default {
 
   data() {
@@ -69,49 +73,57 @@ export default {
     };
   },
   methods: {
-    fetchAuthorsByName() {
+    async fetchAuthorsByName() {
       if (!this.searchName) {
-        this.fetchAllAuthors();
+        await this.fetchAllAuthors();
         return;
       }
       this.loading = true;
-      fetch(`/api/comiccity/author/search/name/${this.searchName}`)
-          .then((response) => response.json())
-          .then((data) => {
-            this.authors = data;
-            this.loading = false;
-          })
-          .catch((error) => {
-            this.errorMsg = 'Error fetching data by name';
-            this.loading = false;
-            console.error(error);
-          });
+      try {
+        const response = await searchAuthorsByName(this.searchName);
+        this.authors = response.data;
+        this.loading = false;
+      } catch (error) {
+        this.errorMsg = 'Error fetching data by name';
+      } finally {
+        this.loading = false;
+      }
     },
 
 
-    fetchAllAuthors() {
+    async fetchAllAuthors() {
       this.loading = true;
-      fetch(`/api/comiccity/author/getAll`)
-          .then((response) => response.json())
-          .then((data) => {
-            this.authors = data;
-            this.loading = false;
-          })
-          .catch((error) => {
-            this.errorMsg = 'Error fetching all authors';
-            this.loading = false;
-            console.error(error);
-          });
+      try {
+        const response = await getAllAuthors();
+        this.authors =response.data.map(author => ({
+          authorID: author.authorID,
+          name: {
+            firstName: author.name.firstName,
+            middleName: author.name.middleName || '',
+            lastName: author.name.lastName
+          },
+          fullName: `${author.authorID} - ${author.name.firstName} ${author.name.middleName || ''} ${author.name.lastName}`.trim(),
+        }));
+        console.log('Authors:', this.authors)
+        this.loading = false;
+      } catch (error) {
+        console.error('Error fetching genres:', error);
+      }
     },
 
-    editAuthor(id) {
-      this.$router.push(`/edit-author/${id}`);
+    editAuthor(AuthorID) {
+      this.$router.push({ name: 'EditAuthor', params: { id: AuthorID } });
     },
 
-    confirmDelete(authorId) {
-      const confirmed = confirm('Are you sure you want to delete this author?');
-      if (confirmed) {
-        this.deleteAuthor(authorId);
+    async confirmDelete(authorId) {
+      try {
+        const confirmed = confirm('Are you sure you want to delete this comic book?');
+        if (confirmed) {
+          await deleteAuthor(authorId);
+          this.authors = this.authors.filter((author) => author.authorID !== authorId);
+        }
+      } catch (error) {
+        console.error('Error deleting publisher book:', error);
       }
     },
 
@@ -151,7 +163,7 @@ export default {
 </script>
 
 <style scoped>
-/* Retained original styles for table and other components */
+
 .table-container {
   width: 100%;
   max-width: 1000px;
