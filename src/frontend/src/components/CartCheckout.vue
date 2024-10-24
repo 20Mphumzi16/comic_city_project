@@ -68,7 +68,10 @@ import FooterSection from '@/components/FooterSection.vue';
 import { createOrder } from '@/services/orderService';
 
 import {getCustomerCart} from "@/services/cartService";
-import {jwtDecode} from "jwt-decode";
+import {jwtDecode} from "jwt-decode"; // Import the service for creating orders
+
+import CustomerService from "@/services/CustomerService";
+import {getCustomerCart} from "@/services/cartService";
 
 
 export default {
@@ -162,7 +165,6 @@ export default {
         const response = await createOrder(orderData);
         alert('Order placed successfully!');
         console.log('Order placed with data:', response);
-        this.$router.push({ name: 'OrderHistory' });
       } catch (error) {
         alert('Failed to place order.');
         console.error('Error placing order:', error);
