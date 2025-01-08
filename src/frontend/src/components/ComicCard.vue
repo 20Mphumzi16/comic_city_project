@@ -106,7 +106,7 @@ export default {
 
 .comic-image {
   width: 100%;
-  height: auto;
+  height: 285px;
   border-radius: 8px;
 }
 
