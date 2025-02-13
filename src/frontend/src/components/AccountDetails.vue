@@ -1,3 +1,4 @@
+
 <template>
   <div class="account-details-page">
     <div class="main-content">
@@ -11,12 +12,12 @@
           <input type="text" id="first-name" v-model="firstName" />
         </div>
         <div class="form-group">
-          <label for="last-name">Last Name <span class="required">*</span></label>
-          <input type="text" id="last-name" v-model="lastName" />
+          <label for="middle-name">Middle Name <span class="required">*</span></label>
+          <input type="text" id="middle-name" v-model="middleName" />
         </div>
         <div class="form-group">
-          <label for="display-name">Display Name <span class="required">*</span></label>
-          <input type="text" id="display-name" v-model="displayName" />
+          <label for="last-name">Last Name <span class="required">*</span></label>
+          <input type="text" id="last-name" v-model="lastName" />
         </div>
         <div class="form-group">
           <label for="email-address">Email Address <span class="required">*</span></label>
@@ -41,8 +42,8 @@ export default {
   data() {
     return {
       firstName: '',
+      middleName: '',
       lastName: '',
-      displayName: '',
       emailAddress: '',
       cellphoneNumber: ''
     };
@@ -52,16 +53,20 @@ export default {
 
       console.log('Account details saved:', {
         firstName: this.firstName,
+        middleName: this.middleName,
         lastName: this.lastName,
-        displayName: this.displayName,
         emailAddress: this.emailAddress,
         cellphoneNumber: this.cellphoneNumber
       });
+
+
+      this.$router.push('/dashboard');
     },
     cancel() {
+
       this.firstName = '';
+      this.middleName = '';
       this.lastName = '';
-      this.displayName = '';
       this.emailAddress = '';
       this.cellphoneNumber = '';
     }
@@ -147,3 +152,4 @@ export default {
   background-color: #333;
 }
 </style>
+<!--sethu-->
