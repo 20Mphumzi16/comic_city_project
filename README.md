@@ -1,24 +1,9 @@
-# About
-The Comic City project is a platform that brings comic enthusiasts together. It allows users to explore, rate, and discuss various comics. The goal is to create a vibrant community around comic books and graphic novels.
+# Comic City Project
 
-# Features
-- User registration and login
-- Comic database exploration
-- Rating and reviewing comics
-- Community discussion forums
+## About
+This project is an online comic book store where users can purchase comic books.
 
-# Tech Stack
-- **Backend:** Java
-- **Frontend:** Vue.js
+## Run Instructions
+To run this project locally...
 
-# Prerequisites
-- JDK 11 or newer
-- Node.js 14 or newer
-
-# Setup
-1. Clone the repository
-2. Install dependencies
-3. Configure application settings
-
-# Run Instructions
-_(To be filled later)_
+(continue with any existing run instructions)
